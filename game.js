@@ -15,8 +15,42 @@ setInterval(game, 1000 / fps);
 
 
 function update() {
+    // Movement of the ball
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
+    // Deteccion de colisiones contra las paredes de arriba y abajo con la pelota
+    if ((ball.y + ball.radius > canvas.height) || (ball.y - ball.radius < 0)) {
+        ball.velocityY = -ball.velocityY;
+    }
+
+    // Deteccion de colisiones con los players
+    let rec = (ball.x < canvas.width / 2) ? player : ia;
+    if (colision(ball, rec)) {
+        /*Todo tenemos que terminar esta funcion con colisiones (minuto 25:04)*/
+    }
 
 }
+
+
+function colision(ball, player) {
+
+    /*Player stuff*/
+    player.top = player.y;
+    player.bottom = player.y + player.height;
+    player.left = player.x;
+    player.right = player.x + player.width;
+
+
+    /*Ball stuff*/
+    ball.top = ball.y - ball.radius;
+    ball.bottom = ball.y + ball.radius;
+    ball.left = ball.x - ball.radius;
+    ball.right = ball.x + ball.radius;
+
+
+    return (ball.right > player.left) && (ball.top < player.bottom) && (ball.left < player.right) && (ball.bottom > player.top);
+}
+
 
 
 /*
@@ -56,7 +90,9 @@ const ball = {
     y: canvas.height / 2,
     radius: 10,
     color: 'white',
-    speed: 5
+    speed: 5,
+    velocityX: 5,
+    velocityY: 5
 };
 
 

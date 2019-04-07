@@ -69,7 +69,7 @@ function movePaddle(evn) {
 
 
 function moveIA() {
-    let iaLevel = 0.05;
+    let iaLevel = 0.1;
     ia.y += (ball.y - (ia.y + ia.height / 2)) * iaLevel;
 
 }
